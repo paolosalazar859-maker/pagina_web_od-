@@ -158,24 +158,26 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-.hero-content p {
-    font-size: 1.2rem;
-    color: var(--text-dim);
-    max-width: 600px;
-    margin: 0 auto 2rem;
+.hero-content h3.subtitle {
+    font-size: 1.5rem;
+    color: var(--primary-light);
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
-.cta-group {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
+.hero-content p.description {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
 }
 
 /* Sections */
-.details {
+.details, .process-section, .why-us, .final-cta {
     padding: 100px 5%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .glass-card {
@@ -183,28 +185,109 @@ body {
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
-    padding: 3rem;
-    max-width: 900px;
+    padding: 4rem;
+    max-width: 1000px;
     box-shadow: var(--shadow);
+    width: 100%;
 }
 
 .glass-card h2 {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.grid-item {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s;
+}
+
+.grid-item:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.grid-item .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 .grid-item h3 {
     font-family: var(--font-heading);
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     color: var(--primary-light);
+}
+
+/* Process Section */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+}
+
+.step-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+    opacity: 0.2;
+    display: block;
+    margin-bottom: -1rem;
+}
+
+/* Why Us List */
+.check-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.check-list li {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Final CTA */
+.final-cta {
+    text-align: center;
+    background: linear-gradient(to bottom, transparent, rgba(131, 58, 180, 0.1));
+}
+
+.final-cta h2 {
+    font-size: 3rem;
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+}
+
+.final-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-dim);
+}
+
+.final-cta .slogan {
+    font-style: italic;
+    color: var(--primary-light);
+    margin-bottom: 2.5rem;
 }
 
 /* Footer */
@@ -232,4 +315,5 @@ body {
     .nav-links { display: none; }
     .cta-group { flex-direction: column; }
     .hero-content h1 { font-size: 3rem; }
+    .glass-card { padding: 2rem; }
 }
