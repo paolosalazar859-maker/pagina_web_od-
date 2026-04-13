@@ -68,9 +68,11 @@ body {
 }
 
 .nav-logo {
-    height: 45px;
+    height: 60px; /* Lo hice un poco más grande */
     width: auto;
     object-fit: contain;
+    border-radius: 12px; /* Redondear los bordes ayuda mucho si el JPG tiene fondo blanco */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra para integrarlo mejor */
     transition: transform 0.3s;
 }
 
