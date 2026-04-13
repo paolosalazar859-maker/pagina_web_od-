@@ -63,15 +63,19 @@ body {
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
 }
 
-.logo span {
-    color: var(--primary-light);
-    font-weight: 300;
+.nav-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
 }
 
 .nav-links {
