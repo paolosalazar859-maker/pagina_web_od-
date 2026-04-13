@@ -290,6 +290,108 @@ body {
     margin-bottom: 2.5rem;
 }
 
+/* Demos Section */
+.demos-section {
+    padding: 100px 5%;
+    background: rgba(255, 255, 255, 0.01);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+}
+
+.demos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.demo-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 3rem;
+    border-radius: 24px;
+    position: relative;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.demo-card:hover {
+    border-color: var(--primary-light);
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.demo-card.highlighted {
+    border-color: var(--primary-light);
+    background: rgba(131, 58, 180, 0.05);
+}
+
+.demo-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--primary-light);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.demo-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.demo-features {
+    list-style: none;
+    margin: 2rem 0;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.demo-features li {
+    margin-bottom: 0.8rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.demo-features li::before {
+    content: "✓";
+    color: var(--primary-light);
+    font-weight: 800;
+}
+
+.btn-demo {
+    background: transparent;
+    border: 1px solid var(--primary-light);
+    color: white;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-demo:hover {
+    background: var(--primary-light);
+}
+
 /* Footer */
 .footer {
     padding: 3rem 5%;
