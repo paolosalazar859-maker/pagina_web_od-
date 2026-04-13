@@ -62,40 +62,49 @@ body {
     border-bottom: 1px solid var(--glass-border);
 }
 
-.logo {
+.logo-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-    text-decoration: none;
+    gap: 15px;
+    text-decoration: none !important;
+}
+
+.logo-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white; /* In case the image doesn't fill */
+    border: 2px solid var(--glass-border);
+    transition: transform 0.3s;
+}
+
+.nav-logo {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    transform: scale(2.5); /* Zooms deeply into the logo to skip white space. Adjust scale if needed */
+}
+
+.logo-text {
     font-family: var(--font-heading);
     font-weight: 800;
     font-size: 1.5rem;
     letter-spacing: 2px;
-    color: var(--text);
+    color: var(--text) !important;
 }
 
-.logo span {
-    color: var(--primary-light);
+.logo-text .highlight {
+    color: var(--primary-light) !important;
     font-weight: 300;
 }
 
-.nav-logo {
-    height: 50px;
-    width: auto;
-    object-fit: contain;
-    /* CSS TRICK: Elimina el fondo blanco y vuelve el logo blanco puro */
-    mix-blend-mode: screen;
-    filter: grayscale(1) invert(1) brightness(10);
-    transform: scale(1.3); /* Lo hace un poco más grande para compensar el espacio blanco interior */
-    transition: transform 0.3s;
-}
-
-.logo:hover .nav-logo {
-    transform: scale(1.4);
-}
-
-.nav-logo:hover {
+.logo-brand:hover .logo-container {
     transform: scale(1.05);
+    border-color: var(--primary-light);
 }
 
 .nav-links {
