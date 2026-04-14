@@ -65,33 +65,36 @@ body {
 .logo-brand {
     display: flex;
     align-items: center;
+    gap: 8px; /* Espacio mínimo porque la imagen trae su propio espaciado interno */
     text-decoration: none !important;
-}
-
-.logo-container {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    border: 2px solid var(--glass-border);
-    transition: transform 0.3s, border-color 0.3s;
+    transition: transform 0.3s;
 }
 
 .nav-logo {
-    width: 100%;
-    height: auto;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
-    /* Zoom into the OD icon and shift up to hide the text below */
-    transform: scale(2.8) translateY(-12%);
+    object-position: center 25%; /* Encuadra el monograma OD */
+    mix-blend-mode: screen; /* Clave: Elimina el fondo negro/oscuro */
+    filter: invert(1) grayscale(1) brightness(5); /* Convierte el blanco a negro (que se vuelve invisible) y el logo azul a ultra-blanco (que se ve perfecto) */
+    transform: scale(2.5); /* Agranda el monograma para que tenga el tamaño de la letra */
 }
 
-.logo-brand:hover .logo-container {
-    transform: scale(1.1);
-    border-color: var(--primary-light);
+.logo-text {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--text) !important;
+}
+
+.logo-text .highlight {
+    color: var(--primary-light) !important;
+    font-weight: 300;
+}
+
+.logo-brand:hover {
+    transform: scale(1.03);
 }
 
 .nav-links {
