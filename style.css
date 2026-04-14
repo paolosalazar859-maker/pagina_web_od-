@@ -444,6 +444,40 @@ body {
     transform: translateY(-2px);
 }
 
+/* Medios de Pago */
+.payment-methods {
+    margin: 1.5rem 0;
+}
+
+.payment-title {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
+.payment-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.payment-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+}
+
 /* Reveal Animation */
 .reveal {
     opacity: 0;
