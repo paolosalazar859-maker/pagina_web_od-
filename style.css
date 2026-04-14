@@ -4,6 +4,7 @@
     --accent: #5851db;
     --background: #0a0a0c;
     --glass: rgba(255, 255, 255, 0.03);
+    --glass-bg: rgba(255, 255, 255, 0.06);
     --glass-border: rgba(255, 255, 255, 0.1);
     --text: #ffffff;
     --text-dim: #a0a0a0;
@@ -435,17 +436,16 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.1rem;
-    border: 1px solid rgba(193, 53, 132, 0.5);
-    padding: 0.6rem 1.4rem;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #833ab4, #c13584);
+    padding: 0.7rem 1.6rem;
     border-radius: 50px;
-    background: rgba(193, 53, 132, 0.15);
-    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 20px rgba(193, 53, 132, 0.35);
+    transition: opacity 0.3s, transform 0.3s;
 }
 
 .instagram-link:hover {
-    background: rgba(193, 53, 132, 0.3);
-    border-color: #c13584;
+    opacity: 0.85;
     transform: translateY(-2px);
 }
 
