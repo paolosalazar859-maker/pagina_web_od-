@@ -65,26 +65,27 @@ body {
 .logo-brand {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espacio mínimo porque la imagen trae su propio espaciado interno */
+    gap: 12px;
     text-decoration: none !important;
-    transition: transform 0.3s;
+    transition: opacity 0.3s;
+    isolation: isolate; /* Elimina la caja negra causada por el mix-blend-mode */
 }
 
 .nav-logo {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     object-fit: cover;
-    object-position: center 25%; /* Encuadra el monograma OD */
-    mix-blend-mode: screen; /* Clave: Elimina el fondo negro/oscuro */
-    filter: invert(1) grayscale(1) brightness(5); /* Convierte el blanco a negro (que se vuelve invisible) y el logo azul a ultra-blanco (que se ve perfecto) */
-    transform: scale(2.5); /* Agranda el monograma para que tenga el tamaño de la letra */
+    object-position: center 25%;
+    mix-blend-mode: plus-lighter; /* Un mezclado más limpio y profesional */
+    filter: invert(1) grayscale(1) contrast(100) brightness(3);
+    transform: scale(2.8); 
 }
 
 .logo-text {
     font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
+    font-weight: 600; /* Se reduce el grosor para dar un aspecto más premium */
+    font-size: 1.3rem; /* Tamaño más sutil */
+    letter-spacing: 3px; /* Más espaciado entre letras es clave en diseño elegante */
     color: var(--text) !important;
 }
 
@@ -94,7 +95,7 @@ body {
 }
 
 .logo-brand:hover {
-    transform: scale(1.03);
+    opacity: 0.8;
 }
 
 .nav-links {
