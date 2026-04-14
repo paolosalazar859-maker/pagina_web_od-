@@ -432,15 +432,20 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: var(--primary-light);
+    color: #ffffff;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.1rem;
-    transition: opacity 0.3s, transform 0.3s;
+    border: 1px solid rgba(193, 53, 132, 0.5);
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    background: rgba(193, 53, 132, 0.15);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
 
 .instagram-link:hover {
-    opacity: 0.8;
+    background: rgba(193, 53, 132, 0.3);
+    border-color: #c13584;
     transform: translateY(-2px);
 }
 
