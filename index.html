@@ -28,6 +28,20 @@
             <li><a href="#process">Proceso</a></li>
             <li><a href="#contact" class="btn-primary">Cotizar Proyecto</a></li>
         </ul>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#home" class="mobile-nav-link">Inicio</a>
+        <a href="#services" class="mobile-nav-link">Servicios</a>
+        <a href="#demos" class="mobile-nav-link">Demos</a>
+        <a href="#process" class="mobile-nav-link">Proceso</a>
+        <a href="#contact" class="btn-primary">Cotizar Proyecto</a>
     </nav>
 
     <main>
@@ -205,5 +219,25 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileLinks = mobileNav.querySelectorAll('a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
 </body>
 </html>
