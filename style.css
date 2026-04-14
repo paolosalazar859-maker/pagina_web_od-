@@ -428,6 +428,22 @@ body {
     font-size: 0.9rem;
 }
 
+.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.instagram-link:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
 /* Reveal Animation */
 .reveal {
     opacity: 0;
