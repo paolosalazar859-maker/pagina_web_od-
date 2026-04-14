@@ -65,20 +65,15 @@ body {
 .logo-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
     text-decoration: none !important;
     transition: opacity 0.3s;
-    isolation: isolate; /* Elimina la caja negra causada por el mix-blend-mode */
 }
 
 .nav-logo {
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
-    object-position: center 25%;
-    mix-blend-mode: plus-lighter; /* Un mezclado más limpio y profesional */
-    filter: invert(1) grayscale(1) contrast(100) brightness(3);
-    transform: scale(2.8); 
+    height: 65px; /* Altura ideal, sin márgenes blancos */
+    width: auto;
+    object-fit: contain;
 }
 
 .logo-text {
