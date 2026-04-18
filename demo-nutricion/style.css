@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #6d28d9;
+    --primary-light: #8b5cf6;
+    --secondary: #d946ef;
+    --bg-main: #f5f3ff;
+    --bg-sidebar: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-main: #1e1b4b;
+    --text-muted: #6b7280;
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --shadow: 0 10px 30px -5px rgba(109, 40, 217, 0.1);
+    --radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid rgba(0,0,0,0.05);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: rgba(109, 40, 217, 0.1);
+    color: var(--primary);
+}
+
+.view-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.view-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.05), transparent);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+/* Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+}
+
+/* Glass Card */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+/* Calendar Component */
+.calendar-container h2 {
+    margin-bottom: 1.5rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.day-name {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding-bottom: 0.5rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.calendar-day:hover:not(.empty) {
+    background: rgba(109, 40, 217, 0.05);
+    border-color: var(--primary-light);
+}
+
+.calendar-day.today {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+}
+
+.calendar-day.has-appointment::after, .dot {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+.calendar-day.selected {
+    background: rgba(109, 40, 217, 0.2) !important;
+    border: 2px solid var(--primary) !important;
+    font-weight: 700;
+    transform: scale(0.95);
+    box-shadow: inset 0 0 10px rgba(109, 40, 217, 0.1);
+}
+
+.planning-day:hover {
+    background: rgba(109, 40, 217, 0.1);
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+/* Slots/Appointments */
+.slots-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.appointment-item {
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.appointment-item .time {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.85rem;
+}
+
+.appointment-item .patient {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #166534;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2);
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: flex-start; /* Cambio clave: alinear arriba */
+    padding: 2rem 1rem;      /* Margen seguro */
+    overflow-y: auto;        /* Permitir bajar si el modal es largo */
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.history-modal {
+    max-width: 900px !important;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    font-size: 1rem;
+}
+
+/* Profile and Patient Styles */
+.profile-header {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 800;
+}
+
+.patient-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.patient-info h4 {
+    color: var(--primary);
+    margin-bottom: 0.2rem;
+}
+
+.history-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    border-left: 4px solid var(--primary);
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.stat-item {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.stat-item b {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+/* --- Print Styles --- */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #patient-history-overlay, 
+    #patient-history-overlay * {
+        visibility: visible;
+    }
+    /* Print Layout Improvements */
+    #patient-history-overlay {
+        position: relative !important;
+        display: block !important;
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    #patient-history-overlay .modal {
+        position: relative !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    /* Header with patient info */
+    #history-patient-name {
+        font-size: 24pt !important;
+        color: black !important;
+    }
+    /* Hide everything except clinical data during print */
+    #history-view-list-container h3:first-of-type,
+    #history-form,
+    #history-view-chart-container,
+    #view-history-list,
+    #view-history-charts,
+    .btn,
+    .btn i,
+    .nav-menu,
+    [data-lucide="printer"],
+    [data-lucide="x"],
+    [data-lucide="file-down"] {
+        display: none !important;
+    }
+    .history-card {
+        border: 1px solid #ddd !important;
+        padding: 15px !important;
+        margin-bottom: 20px !important;
+        break-inside: avoid;
+    }
+    #history-patient-antecedentes-wrapper {
+        display: block !important;
+        border: 1px solid #ccc !important;
+        background: #fdfdfd !important;
+        padding: 15px !important;
+    }
+}
