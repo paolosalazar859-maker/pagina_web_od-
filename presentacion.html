@@ -320,6 +320,27 @@
             pointer-events: none;
         }
 
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--accent-main), var(--accent-sec));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Outfit';
+            font-size: 18px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(193, 53, 132, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(193, 53, 132, 0.5);
+        }
+
         /* Indicador de Progreso */
         .progress-bar {
             position: fixed;
@@ -461,13 +482,16 @@
                             <li><i class='bx bx-user'></i> Paolo Salazar - Director Ejecutivo</li>
                             <li><i class='bx bxl-whatsapp'></i> +56 9 7348 7761</li>
                             <li><i class='bx bx-envelope'></i> optimizatedigital@gmail.com</li>
-                            <li><i class='bx bx-world'></i> www.optimizatedigital.com</li>
+                            <li><i class='bx bx-world'></i> <a href="https://optimizatedigital.cl" target="_blank" style="color: var(--text-main); text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,0.3);">optimizatedigital.cl</a></li>
                             <li><i class='bx bxl-instagram'></i> @optimizate_digital</li>
                         </ul>
+                        <a href="https://optimizatedigital.cl" target="_blank" class="btn-primary">
+                            <i class='bx bx-link-external'></i> Visitar Página Web
+                        </a>
                     </div>
                     <div class="qr-box">
                         <!-- Usamos la misma lógica del QR hacia la web -->
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://optimizatedigital.com" alt="QR Website">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://optimizatedigital.cl" alt="QR Website">
                         <p>Escanea para iniciar</p>
                     </div>
                 </div>

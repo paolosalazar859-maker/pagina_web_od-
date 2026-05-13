@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas Listas para Imprenta | Oficio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #ffffff; /* Fondo blanco para evitar que se vea plomo al imprimir */
+            --accent-color: #c13584; /* Volvemos al magenta original, resalta perfecto en blanco */
+            --text-color: #1a1a1a; /* Gris muy oscuro/casi negro para el texto */
+            --card-width: 86mm;
+            --card-height: 54mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .no-print {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            background: #c13584;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Configuración de Página Oficio */
+        .page {
+            width: 216mm;
+            height: 330mm;
+            background: white;
+            position: relative;
+            margin-bottom: 20mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            page-break-after: always;
+        }
+
+        /* Grilla de Tarjetas (2 columnas x 5 filas) */
+        .grid {
+            display: grid;
+            grid-template-columns: var(--card-width) var(--card-width);
+            grid-template-rows: repeat(5, var(--card-height));
+            gap: 0; /* Sin espacio para poder cortar por la misma línea */
+            border: 0.5px solid #ccc; /* Línea de corte exterior */
+        }
+
+        .card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            border: 0.5px dashed #ccc; /* Líneas de corte guía */
+            color: var(--text-color);
+        }
+
+        /* Diseño del Anverso */
+        .front {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .front .logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+
+        .front .brand {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .front .brand span {
+            color: var(--accent-color);
+        }
+
+        .front .slogan {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffffff;
+            opacity: 0.85;
+            margin-top: 5px;
+        }
+
+        /* Diseño del Reverso */
+        .back {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 0;
+        }
+
+        .back .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+            padding: 5mm;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back .name {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .back .title {
+            font-size: 10px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .back .contact-line {
+            font-size: 11.5px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+        .back .qr-box {
+            text-align: center;
+            width: 35mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back .qr {
+            width: 18mm;
+            height: 18mm;
+            background: #ffffff;
+            padding: 2.5px;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .back .qr-text {
+            font-size: 7.5px;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+            font-weight: 800;
+        }
+
+        /* Formas orgánicas premium */
+        .shape-bg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 34mm;
+            background: linear-gradient(135deg, var(--accent-color), #ff6bbd);
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+            z-index: 0;
+        }
+        .glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(193, 53, 132, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .no-print { display: none; }
+            .page { box-shadow: none; margin: 0; }
+            @page { size: 216mm 330mm; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <h2>Plantilla de Impresión Profesional (Oficio)</h2>
+        <p>10 tarjetas por hoja. Tamaño Tarjeta de Crédito: 8.6x5.4 cm (86x54mm).</p>
+        <p style="font-size: 13px; color: #666; margin-top: 5px;">
+            Asegúrate de configurar la impresión al <strong>100% de escala</strong> y activar <strong>"Gráficos de fondo"</strong>.
+        </p>
+        <button class="btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+    </div>
+
+    <!-- PÁGINA ÚNICA: TARJETAS DE UNA SOLA CARA -->
+    <div class="page">
+        <div class="grid" id="single-grid">
+            <!-- Se generan con JS para mantener el código limpio -->
+        </div>
+    </div>
+
+    <script>
+        const singleContent = `
+            <div class="card back">
+                <div class="shape-bg"></div>
+                <div class="info">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                        <img src="logo.png" alt="Logo" style="width: 24px; height: 24px; filter: drop-shadow(0 0 5px rgba(255,92,179,0.5));" onerror="this.style.display='none'">
+                        <div style="font-size: 13px; font-weight: 800; letter-spacing: 1px;">OPTIMIZATE<span style="color:var(--accent-color);">DIGITAL</span></div>
+                    </div>
+                    <div>
+                        <div class="name" style="margin-bottom: 8px;">Paolo Salazar</div>
+                    </div>
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="color: var(--accent-color); flex-shrink: 0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 0 5.414 0 12.05c0 2.123.552 4.197 1.603 6.013L0 24l6.135-1.61a11.787 11.787 0 005.912 1.583h.005c6.636 0 12.05-5.414 12.05-12.05a11.787 11.787 0 00-3.489-8.484z"/></svg>
+                        +56 9 7348 7761
+                    </div>
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="color: var(--accent-color); flex-shrink: 0;"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        optimizatedigital@gmail.com
+                    </div>
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="color: var(--accent-color); flex-shrink: 0;"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                        <a href="https://optimizatedigital.cl" target="_blank" style="color: inherit; text-decoration: none;">optimizatedigital.cl</a>
+                    </div>
+                    <div class="contact-line">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="color: var(--accent-color); flex-shrink: 0;"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+                        @optimizate_digital
+                    </div>
+                </div>
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://optimizatedigital.cl&color=c13584&bgcolor=ffffff" class="qr">
+                    <div class="qr-text">ESCANEA PARA<br>VISITAR LA WEB</div>
+                </div>
+            </div>
+        `;
+
+        // Llenar grilla (10 tarjetas de una sola cara)
+        document.getElementById('single-grid').innerHTML = singleContent.repeat(10);
+    </script>
+</body>
+</html>
