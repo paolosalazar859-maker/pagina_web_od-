@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Publicidad | Optimizate Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #c13584;
+            --text: #ffffff;
+            --text-dim: #888888;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #111;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Selector de Temas (No se incluye en la captura) */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .theme-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: transparent;
+            color: white;
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Contenedor Principal del Poster */
+        .poster-container {
+            width: 90vmin;
+            height: 90vmin;
+            max-width: 800px;
+            max-height: 800px;
+            position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            transition: all 0.5s ease;
+        }
+
+        /* ==========================
+           TEMA 1: ELITE MINIMAL 
+           ========================== */
+        .theme-minimal .poster {
+            background-color: #050505;
+            width: 100%; height: 100%;
+            padding: 8%; display: flex; flex-direction: column;
+            border: 1px solid var(--border);
+        }
+        .theme-minimal .logo { font-family: 'Outfit'; letter-spacing: 0.5em; text-transform: uppercase; font-size: 14px; font-weight: 200; margin-bottom: 5%; color: white; }
+        .theme-minimal .title { font-family: 'Outfit'; font-size: clamp(30px, 6vmin, 55px); font-weight: 900; line-height: 1; text-transform: uppercase; color: white; }
+        .theme-minimal .title span { display: block; font-weight: 200; color: #666; font-size: 0.8em; }
+        .theme-minimal .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: auto; margin-bottom: auto; }
+        .theme-minimal .grid h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 15px; }
+        .theme-minimal .grid li { list-style: none; color: white; font-size: 16px; margin-bottom: 8px; font-weight: 300; opacity: 0.8; }
+        .theme-minimal .footer { border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .theme-minimal .contact-val { font-family: 'Outfit'; font-size: 22px; font-weight: 700; color: white; }
+        .theme-minimal .slogan { font-size: 12px; color: var(--accent); text-align: right; max-width: 140px; letter-spacing: 0.1em; }
+
+        /* ==========================
+           TEMA 2: CORPORATE GLASS
+           ========================== */
+        .theme-glass .poster {
+            background: radial-gradient(circle at top left, #1a1a2e, #0a0a0c);
+            width: 100%; height: 100%;
+            padding: 60px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+        .theme-glass .header { margin-bottom: 40px; }
+        .theme-glass .logo { color: var(--accent); font-weight: 800; font-size: 18px; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
+        .theme-glass .title { font-size: clamp(35px, 7vmin, 60px); font-weight: 800; color: white; line-height: 1.1; font-family: 'Outfit'; }
+        .theme-glass .glass-card { 
+            background: rgba(255,255,255,0.03); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px; border-radius: 24px; width: 100%; margin-top: 20px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;
+        }
+        .theme-glass .glass-card h4 { color: var(--accent); font-size: 14px; margin-bottom: 15px; text-transform: uppercase; }
+        .theme-glass .glass-card li { list-style: none; color: #ccc; font-size: 14px; margin-bottom: 8px; }
+        .theme-glass .footer { margin-top: 40px; width: 100%; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; }
+        .theme-glass .email { color: white; font-size: 24px; font-weight: 700; font-family: 'Outfit'; }
+
+        /* ==========================
+           TEMA 3: BOLD CONTRAST
+           ========================== */
+        .theme-bold .poster {
+            background-color: var(--accent);
+            width: 100%; height: 100%;
+            padding: 0; display: flex; flex-direction: column;
+        }
+        .theme-bold .top-bar { background: #000; color: white; padding: 40px; font-weight: 900; font-size: 80px; line-height: 0.8; font-family: 'Outfit'; text-transform: uppercase; flex: 1; display: flex; align-items: center; }
+        .theme-bold .info-bar { padding: 40px; color: black; display: flex; justify-content: space-between; align-items: center; }
+        .theme-bold .list { font-weight: 700; font-size: 20px; line-height: 1.2; text-transform: uppercase; }
+        .theme-bold .cta { background: #000; color: white; padding: 20px 40px; font-weight: 800; text-transform: uppercase; border-radius: 0; margin-top: -10px; }
+    </style>
+</head>
+<body class="theme-minimal" id="body">
+
+    <div class="theme-selector">
+        <button class="theme-btn active" onclick="setTheme('minimal', this)">Elite Minimal</button>
+        <button class="theme-btn" onclick="setTheme('glass', this)">Corporate Glass</button>
+        <button class="theme-btn" onclick="setTheme('bold', this)">Bold Contrast</button>
+    </div>
+
+    <div class="poster-container" id="posterContainer">
+        <!-- El contenido se inyecta dinámicamente -->
+    </div>
+
+    <script>
+        const content = {
+            minimal: `
+                <div class="poster">
+                    <div class="logo">Optimizate Digital</div>
+                    <div class="header">
+                        <h1 class="title"><span>Estrategia &</span>Tecnología</h1>
+                    </div>
+                    <div class="grid">
+                        <div>
+                            <h3>Servicios</h3>
+                            <ul>
+                                <li>Software a Medida</li>
+                                <li>Control de Stock</li>
+                                <li>Apps Escritorio</li>
+                                <li>Webs de Élite</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>Ventajas</h3>
+                            <ul>
+                                <li>Pago Único</li>
+                                <li>Sin Mensualidades</li>
+                                <li>Soporte Directo</li>
+                                <li>Privacidad Total</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div>
+                            <p style="font-size:10px; color:#666; text-transform:uppercase; letter-spacing:2px; margin-bottom:5px;">Cotiza tu proyecto</p>
+                            <p class="contact-val">optimizatedigital@gmail.com</p>
+                        </div>
+                        <div class="slogan">TRANSFORMAMOS PROCESOS EN RESULTADOS</div>
+                    </div>
+                </div>
+            `,
+            glass: `
+                <div class="poster">
+                    <div class="header">
+                        <div class="logo">Optimizate Digital</div>
+                        <h1 class="title">Impulsa tu negocio con tecnología real</h1>
+                    </div>
+                    <div class="glass-card">
+                        <div>
+                            <h4>Nuestras Soluciones</h4>
+                            <ul>
+                                <li>• Software de Gestión</li>
+                                <li>• Control de Inventario</li>
+                                <li>• Apps Móviles</li>
+                                <li>• Webs Profesionales</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>¿Por qué elegirnos?</h4>
+                            <ul>
+                                <li>• 100% Personalizado</li>
+                                <li>• Sin pagos mensuales</li>
+                                <li>• Soporte técnico continuo</li>
+                                <li>• Privacidad y Seguridad</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <p style="color:#888; margin-bottom:10px; text-transform:uppercase; letter-spacing:2px; font-size:12px;">Habla con nosotros</p>
+                        <p class="email">optimizatedigital@gmail.com</p>
+                        <p style="color:var(--accent); font-weight:600; margin-top:10px;">IG: @optimizate_digital</p>
+                    </div>
+                </div>
+            `,
+            bold: `
+                <div class="poster">
+                    <div class="top-bar">OPTIMIZA<br>TU<br>NEGOCIO</div>
+                    <div class="info-bar">
+                        <div class="list">
+                            SOFTWARE A MEDIDA<br>
+                            SIN MENSUALIDADES<br>
+                            CONTROL TOTAL
+                        </div>
+                        <div class="cta">
+                            CONTACTAR<br>
+                            <span style="font-size: 12px; font-weight:400;">optimizatedigital@gmail.com</span>
+                        </div>
+                    </div>
+                    <div style="background:#000; color:white; padding:15px; font-size:14px; letter-spacing:10px; text-align:center;">
+                        OPTIMIZATE DIGITAL
+                    </div>
+                </div>
+            `
+        };
+
+        function setTheme(theme, btn) {
+            // Actualizar botones
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Actualizar clase del body
+            document.getElementById('body').className = 'theme-' + theme;
+
+            // Inyectar contenido
+            document.getElementById('posterContainer').innerHTML = content[theme];
+        }
+
+        // Inicializar
+        setTheme('minimal', document.querySelector('.theme-btn'));
+    </script>
+</body>
+</html>

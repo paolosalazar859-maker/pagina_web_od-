@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Presentación | Optimizate Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-bg: #0a0a0c;
+            --card-surface: #111116;
+            --accent-color: #c13584; /* Magenta de la web */
+            --accent-secondary: #833ab4; /* Púrpura de la web */
+            --accent-indigo: #5851db; /* Íindigo de la web */
+            --text-color: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --card-width: 90mm;
+            --card-height: 50mm;
+        }
+
+        /* ... remaining styles updated ... */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .controls {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 6px 20px rgba(193, 53, 132, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(193, 53, 132, 0.35);
+        }
+
+        .instructions {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .business-card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background-color: var(--primary-bg);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex;
+            color: var(--text-color);
+            background-image: 
+                radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 15px 15px;
+        }
+
+        /* Decoration Elements */
+        .card-glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(193, 53, 132, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .glow-1 { top: -50px; right: -50px; }
+        .glow-2 { bottom: -50px; left: -50px; }
+
+        .border-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            opacity: 0.5;
+            z-index: 3;
+        }
+
+        /* Front Side */
+        .card-front {
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .logo-container {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-logo {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 12px rgba(193, 53, 132, 0.45));
+        }
+
+        .card-brand {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .card-brand span {
+            color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-slogan {
+            font-size: 11px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-top: 10px;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        /* Back Side */
+        .card-back {
+            padding: 10mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-section {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+        }
+
+        .contact-icon {
+            color: var(--accent-color);
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .qr-section {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10mm;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .qr-placeholder {
+            width: 80px;
+            height: 80px;
+            background: white;
+            padding: 6px;
+            border-radius: 8px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+        }
+
+        .qr-label {
+            font-size: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-color);
+            text-align: center;
+        }
+
+        /* Side Indicator */
+        .side-label {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #bbc1c7;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .side-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e1e4e8;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .controls, .side-label, .instructions {
+                display: none;
+            }
+            .cards-container {
+                gap: 0;
+                display: block;
+            }
+            .business-card {
+                box-shadow: none;
+                page-break-after: always;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <h1>Tarjeta de Presentación Pro</h1>
+        <p>Optimizate Digital · Identidad Corporativa</p>
+        <div class="instructions">
+            <b>Guía de impresión:</b> <br>
+            Usa papel satinado de 300g para un acabado premium. <br>
+            Asegúrate de que la escala esté al <b>100%</b> en ajustes de impresión.
+        </div>
+        <br>
+        <button class="btn-print" onclick="downloadJPG()">Descargar Tarjeta (JPG)</button>
+        <button class="btn-print" style="margin-left: 10px; background: #333;" onclick="window.print()">Imprimir (PDF)</button>
+    </div>
+
+    <div class="cards-container">
+        <!-- Anverso -->
+        <div>
+            <div class="side-label">Anverso</div>
+            <div class="business-card card-front">
+                <div class="card-glow glow-1"></div>
+                <div class="card-glow glow-2"></div>
+                <div class="border-line"></div>
+                <div class="logo-container">
+                    <img src="logo.png" alt="Logo" class="card-logo">
+                    <div class="card-brand">OPTIMIZATE<span>DIGITAL</span></div>
+                </div>
+                <div class="card-slogan">Transformamos procesos en resultados</div>
+            </div>
+        </div>
+
+        <!-- Reverso -->
+        <div>
+            <div class="side-label">Reverso</div>
+            <div class="business-card card-back">
+                <div class="card-glow glow-1" style="opacity: 0.5;"></div>
+                <div class="border-line"></div>
+                
+                <div class="info-section">
+                    <div style="margin-bottom: 8px;">
+                        <h2 style="font-size: 16px; font-weight: 800; color: white; letter-spacing: 1px; margin-bottom: 2px;">Paolo Salazar</h2>
+                        <p style="font-size: 9px; font-weight: 300; color: var(--accent-color); text-transform: uppercase; letter-spacing: 2px;">Director Ejecutivo</p>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 0 5.414 0 12.05c0 2.123.552 4.197 1.603 6.013L0 24l6.135-1.61a11.787 11.787 0 005.912 1.583h.005c6.636 0 12.05-5.414 12.05-12.05a11.787 11.787 0 00-3.489-8.484z"/></svg>
+                        </span>
+                        +56 9 7348 7761
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </span>
+                        optimizatedigital@gmail.com
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+                        </span>
+                        @optimizate_digital
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                        </span>
+                        www.optimizatedigital.com
+                    </div>
+                </div>
+
+                <div class="qr-section">
+                    <div class="qr-placeholder">
+                        <img id="qr-image" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://optimizatedigital.com" alt="QR Contacto" style="width: 100%; height: 100%;">
+                    </div>
+                    <div class="qr-label">Visita nuestra<br>web</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadJPG() {
+            // Ocultar elementos no deseados para la captura
+            const controls = document.querySelector('.controls');
+            const sideLabels = document.querySelectorAll('.side-label');
+            const originalBodyBackground = document.body.style.background;
+            
+            // Preparar el contenedor para la captura (fondo blanco, sin espacios extra)
+            controls.style.display = 'none';
+            sideLabels.forEach(el => el.style.display = 'none');
+            document.body.style.background = 'white';
+            
+            const container = document.querySelector('.cards-container');
+            
+            // Aumentar la escala para mejor calidad de impresión
+            html2canvas(container, {
+                scale: 4, 
+                useCORS: true,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                // Restaurar estilos
+                controls.style.display = 'block';
+                sideLabels.forEach(el => el.style.display = 'flex');
+                document.body.style.background = originalBodyBackground;
+                
+                // Crear enlace de descarga
+                const link = document.createElement('a');
+                link.download = 'tarjeta_presentacion_od.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 1.0);
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>

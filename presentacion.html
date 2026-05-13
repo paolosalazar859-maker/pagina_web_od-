@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Corporativa | Optimizate Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Boxicons para iconos modernos -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root {
+            --bg-dark: #050507;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --accent-main: #c13584;
+            --accent-sec: #833ab4;
+            --accent-glow: rgba(193, 53, 132, 0.4);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+            --border-light: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden; /* Oculta el scroll nativo, usaremos JS para transiciones */
+        }
+
+        /* Tipografía Headings */
+        h1, h2, h3, h4, .brand {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Contenedor Principal de la Presentación */
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Cada Diapositiva */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1); /* Transición suave */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5%;
+            transform: translateY(50px) scale(0.95);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            transform: translateY(-50px) scale(0.95);
+        }
+
+        /* Background Effects */
+        .ambient-glow {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.5;
+            transition: all 1s ease;
+        }
+
+        /* ========================
+           DISEÑO DE LAS SLIDES
+           ======================== */
+        
+        .content-box {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .text-center { text-align: center; }
+
+        /* Slide 1: Portada */
+        .slide-cover .brand {
+            font-size: 20px;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            font-weight: 200;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+        
+        .slide-cover h1 {
+            font-size: clamp(40px, 8vw, 100px);
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        .slide-cover h1 span {
+            background: linear-gradient(135deg, var(--accent-main), var(--accent-sec));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .slide-cover p {
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Slide 2 & Comunes: Título de sección */
+        .section-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-main);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--accent-main);
+        }
+
+        .main-heading {
+            font-size: clamp(35px, 5vw, 65px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        /* Grid de Servicios y Ventajas */
+        .glass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(193, 53, 132, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-main), var(--accent-sec));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .glass-card:hover::before { opacity: 1; }
+
+        .glass-card i {
+            font-size: 40px;
+            color: var(--accent-main);
+            margin-bottom: 20px;
+        }
+
+        .glass-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .glass-card p {
+            color: var(--text-dim);
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Slide Final: Contacto */
+        .contact-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 60px;
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info h2 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 20px;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+
+        .contact-list i {
+            font-size: 24px;
+            color: var(--accent-main);
+        }
+
+        .qr-box {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            color: black;
+        }
+
+        .qr-box img {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 10px;
+        }
+        
+        .qr-box p {
+            font-family: 'Outfit';
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        /* Controles de Navegación */
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-main);
+            border-color: var(--accent-main);
+            transform: scale(1.1);
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Indicador de Progreso */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-main), var(--accent-sec));
+            width: 0%;
+            z-index: 100;
+            transition: width 0.4s ease;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-family: 'Outfit';
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            z-index: 100;
+        }
+
+        .slide-counter span {
+            color: white;
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-box { flex-direction: column; text-align: center; padding: 30px; }
+            .section-title { justify-content: center; }
+            .section-title::before { display: none; }
+            .controls { bottom: 20px; right: 20px; }
+            .slide-counter { bottom: 20px; left: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="ambient-glow" id="glow"></div>
+
+    <div class="presentation-container">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide slide-cover active">
+            <div class="content-box text-center">
+                <div class="brand">Optimizate Digital</div>
+                <h1>Transformamos<br><span>Procesos en Resultados</span></h1>
+                <p>No vendemos software, creamos el motor que impulsa la eficiencia de tu negocio.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: EL PROBLEMA / SOLUCIÓN -->
+        <div class="slide">
+            <div class="content-box">
+                <div class="section-title">Nuestra Filosofía</div>
+                <h2 class="main-heading">Tecnología Real para Negocios Reales.</h2>
+                <div class="glass-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="glass-card">
+                        <i class='bx bx-x-circle' style="color: #ff4757;"></i>
+                        <h3>El Problema Actual</h3>
+                        <p>La mayoría de empresas pagan costosas suscripciones mensuales por sistemas genéricos que no se adaptan a su forma de trabajar, forzando a los empleados a aprender herramientas complejas e ineficientes.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class='bx bx-check-circle' style="color: #2ed573;"></i>
+                        <h3>La Solución Optimizate</h3>
+                        <p>Desarrollamos herramientas a medida que se adaptan como un guante a tus procesos actuales. Pagas una sola vez y el código es tuyo, eliminando la dependencia y los gastos recurrentes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: SERVICIOS -->
+        <div class="slide">
+            <div class="content-box">
+                <div class="section-title">Especialidades</div>
+                <h2 class="main-heading">Soluciones de Alto Impacto.</h2>
+                <div class="glass-grid">
+                    <div class="glass-card">
+                        <i class='bx bx-code-alt'></i>
+                        <h3>Software de Gestión</h3>
+                        <p>Sistemas internos a medida (ERP/CRM) diseñados para automatizar y simplificar tu operativa diaria.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class='bx bx-data'></i>
+                        <h3>Control de Stock</h3>
+                        <p>Inventarios precisos en tiempo real, alertas automáticas y reportes detallados para que nunca pierdas una venta.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class='bx bx-window-alt'></i>
+                        <h3>Apps de Escritorio</h3>
+                        <p>Aplicaciones ultra rápidas y seguras (macOS/Windows) que no dependen del navegador para funcionar.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class='bx bx-globe'></i>
+                        <h3>Webs de Élite</h3>
+                        <p>Plataformas web corporativas con diseños premium que convierten visitantes en clientes reales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: VENTAJAS (POR QUÉ NOSOTROS) -->
+        <div class="slide">
+            <div class="content-box">
+                <div class="section-title">Ventaja Competitiva</div>
+                <h2 class="main-heading">Por qué elegir Optimizate Digital.</h2>
+                <div class="glass-grid">
+                    <div class="glass-card">
+                        <i class='bx bx-dollar-circle'></i>
+                        <h3>Pago Único</h3>
+                        <p>Adiós a las ataduras. Diseñamos, programamos y entregamos. Sin mensualidades ocultas.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class='bx bx-shield-quarter'></i>
+                        <h3>Privacidad Total</h3>
+                        <p>Tu base de datos es tuya. Las aplicaciones pueden operar localmente para máxima seguridad.</p>
+                    </div>
+                    <div class="glass-card">
+                        <i class='bx bx-support'></i>
+                        <h3>Soporte Directo</h3>
+                        <p>Hablas directamente con el desarrollador, sin intermediarios ni tickets de espera interminables.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: CONTACTO -->
+        <div class="slide">
+            <div class="content-box">
+                <div class="contact-box">
+                    <div class="contact-info">
+                        <div class="section-title">Siguiente Paso</div>
+                        <h2>Hablemos de tu proyecto</h2>
+                        <ul class="contact-list">
+                            <li><i class='bx bx-user'></i> Paolo Salazar - Director Ejecutivo</li>
+                            <li><i class='bx bxl-whatsapp'></i> +56 9 7348 7761</li>
+                            <li><i class='bx bx-envelope'></i> optimizatedigital@gmail.com</li>
+                            <li><i class='bx bx-world'></i> www.optimizatedigital.com</li>
+                            <li><i class='bx bxl-instagram'></i> @optimizate_digital</li>
+                        </ul>
+                    </div>
+                    <div class="qr-box">
+                        <!-- Usamos la misma lógica del QR hacia la web -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://optimizatedigital.com" alt="QR Website">
+                        <p>Escanea para iniciar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Controles -->
+    <div class="controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)"><i class='bx bx-chevron-left'></i></button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)"><i class='bx bx-chevron-right'></i></button>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlideNum">1</span> / <span id="totalSlidesNum" style="font-size: 18px;">5</span>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideNum = document.getElementById('currentSlideNum');
+        const glow = document.getElementById('glow');
+        
+        let currentSlide = 0;
+
+        document.getElementById('totalSlidesNum').textContent = totalSlides;
+
+        function updatePresentation() {
+            // Actualizar clases de slides
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            // Actualizar botones
+            prevBtn.classList.toggle('disabled', currentSlide === 0);
+            nextBtn.classList.toggle('disabled', currentSlide === totalSlides - 1);
+
+            // Actualizar barra de progreso
+            const progress = ((currentSlide) / (totalSlides - 1)) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Actualizar contador
+            currentSlideNum.textContent = currentSlide + 1;
+
+            // Cambiar posición del glow aleatoriamente para dinamismo
+            const randomX = 30 + Math.random() * 40;
+            const randomY = 30 + Math.random() * 40;
+            glow.style.left = randomX + '%';
+            glow.style.top = randomY + '%';
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updatePresentation();
+        }
+
+        // Navegación por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Navegación por scroll/rueda de ratón (con debounce)
+        let isScrolling = false;
+        document.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+            
+            if (e.deltaY > 0) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
+            }
+            
+            setTimeout(() => {
+                isScrolling = false;
+            }, 800); // Cooldown coincide con la transición CSS
+        });
+
+        // Touch swipe para móviles
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchStartY - touchEndY > 50) {
+                changeSlide(1); // Swipe arriba -> Next
+            }
+            if (touchEndY - touchStartY > 50) {
+                changeSlide(-1); // Swipe abajo -> Prev
+            }
+        }
+
+        // Init
+        updatePresentation();
+    </script>
+</body>
+</html>
