@@ -53,12 +53,12 @@
             height: 100%;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.8s cubic-bezier(0.645, 0.045, 0.355, 1); /* Transición suave */
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Transición rápida y fluida */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 5%;
-            transform: translateY(50px) scale(0.95);
+            transform: translateY(30px) scale(0.98);
         }
 
         .slide.active {
@@ -69,7 +69,7 @@
         }
 
         .slide.prev {
-            transform: translateY(-50px) scale(0.95);
+            transform: translateY(-30px) scale(0.98);
         }
 
         /* Background Effects */
@@ -582,7 +582,7 @@
             
             setTimeout(() => {
                 isScrolling = false;
-            }, 800); // Cooldown coincide con la transición CSS
+            }, 500); // Cooldown ajustado a la nueva transición más rápida
         });
 
         // Touch swipe para móviles
