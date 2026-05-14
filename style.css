@@ -565,6 +565,162 @@ body {
 }
 
 /* =====================
+   NEW SECTIONS STYLING
+===================== */
+
+/* WhatsApp Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* Tech Marquee */
+.tech-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1.5rem 0;
+    margin: 2rem 0;
+    white-space: nowrap;
+}
+
+.tech-marquee {
+    display: inline-block;
+    animation: scroll 20s linear infinite;
+}
+
+.tech-marquee span {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    margin: 0 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Success Cases */
+.case-card {
+    padding: 2.5rem;
+    text-align: left;
+}
+
+.case-tag {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--primary-light);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.case-split {
+    display: flex;
+    gap: 2rem;
+}
+
+.case-split > div {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.case-split h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.before h4 { color: #ff4757; }
+.after h4 { color: #2ed573; }
+
+/* FAQ Section */
+.faq-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-item summary {
+    padding: 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+    color: var(--primary-light);
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+.faq-item[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+/* =====================
    RESPONSIVE - MOBILE
 ===================== */
 @media (max-width: 768px) {
@@ -648,4 +804,8 @@ body {
     .footer { padding: 2rem 5%; }
     .payment-icons { gap: 0.4rem; }
     .payment-badge { font-size: 0.78rem; padding: 0.3rem 0.7rem; }
+    
+    /* Responsive Cases & FAQ */
+    .case-split { flex-direction: column; gap: 1rem; }
+    .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
 }
