@@ -371,11 +371,43 @@
         }
 
         @media (max-width: 768px) {
-            .contact-box { flex-direction: column; text-align: center; padding: 30px; }
-            .section-title { justify-content: center; }
+            .contact-box { flex-direction: column; text-align: center; padding: 20px; gap: 20px; }
+            .section-title { justify-content: center; margin-bottom: 15px; }
             .section-title::before { display: none; }
-            .controls { bottom: 20px; right: 20px; }
-            .slide-counter { bottom: 20px; left: 20px; }
+            .controls { bottom: 15px; right: 15px; }
+            .slide-counter { bottom: 15px; left: 15px; }
+            
+            /* Arreglos críticos para móviles */
+            .glass-grid {
+                grid-template-columns: 1fr !important; /* Fuerza 1 columna en móviles */
+                gap: 15px;
+            }
+            .glass-card {
+                padding: 20px;
+            }
+            .glass-card i {
+                font-size: 30px;
+                margin-bottom: 10px;
+            }
+            .glass-card h3 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            .main-heading {
+                font-size: 30px;
+                margin-bottom: 25px;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            .content-box {
+                max-height: 85vh;
+                overflow-y: auto;
+                padding-bottom: 40px;
+            }
+            .content-box::-webkit-scrollbar {
+                display: none;
+            }
         }
     </style>
 </head>
