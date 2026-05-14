@@ -601,27 +601,50 @@ body {
 .tech-marquee-container {
     width: 100%;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid var(--glass-border);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 1.5rem 0;
-    margin: 2rem 0;
+    background: transparent;
+    padding: 2rem 0;
+    margin: 3rem 0;
     white-space: nowrap;
+    position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .tech-marquee {
     display: inline-block;
-    animation: scroll 20s linear infinite;
+    animation: scroll 25s linear infinite;
 }
 
-.tech-marquee span {
+.tech-marquee:hover {
+    animation-play-state: paused;
+}
+
+.tech-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--text-dim);
-    margin: 0 3rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    margin: 0 2.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.tech-item i {
+    font-size: 2rem;
+    color: var(--primary-light);
+}
+
+.tech-item:hover {
+    color: #fff;
+    background: rgba(193, 53, 132, 0.1);
+    border-color: rgba(193, 53, 132, 0.3);
+    transform: translateY(-5px);
 }
 
 @keyframes scroll {
